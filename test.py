@@ -1,18 +1,18 @@
 import unittest
-import polynomial as pl
+import Polynomial as pl
 
 
 class TestStringMethods(unittest.TestCase):
 
     def setUp(self):
-        self.polyE = pl.polynomial()
+        self.polyE = pl.Polynomial()
         self.empty_args_list = [[], ()]
         self.scalar_args_list = [ 0, 1, -1, 2, -2, 32, 16540, -47963]
         self.seq1_args_list = [ [2,17,6], [0,1,-3], [0,2,7, 0,0 ,-2], [0,0 ,-2, 3], [-2, 3, 0, 0] ]
         self.seq2_args_list = [ (2,17,6), (0,1,-3), (0,2,7, 0,0 ,-2), (0,0 ,-2, 3), (-2, 3, 0, 0) ]
         self.exception_args_list_TypeError = [ None, (1,-2,[2]),  [[],1,2], [(),1,2], (list(),-5,4), (-5,tuple(),4), (-5,(),4),(-5,4,dict()) ]
         self.exception_args_list_ValueError = [ 'a', [2,'hello',3], (-5,4,str()) ]
-        self.strPoly_list = [ '2x2+17x+6', '1x-3', '2x4+7x3-2', '-2x+3', '-2x3+3x2' ]        
+        self.strPoly_list = [ '2x2+17x+6', '1x-3', '2x4+7x3-2', '-2x+3', '-2x3+3x2' ]
         self.strNegPoly_list = [ '-2x2-17x-6', '-1x+3', '-2x4-7x3+2', '2x-3', '2x3-3x2' ]
         self.testMultPoly = [2,3,-1]
         self.SolutionMultPoly = [[4,40,61,1,-6],[2,-3,-10,3],[4,20,19,-7,-4,-6,2],[-4,0,11,-3],[-4,0,11,-3,0,0]]
@@ -24,17 +24,17 @@ class TestStringMethods(unittest.TestCase):
     #@unittest.skip("demonstrating skipping")
     def test_init(self):
         print("test_init")
-        p1 = pl.polynomial()
-        p2 = pl.polynomial([8,-5,0,3])
-        p3 = pl.polynomial(8,-5,0,3)
-        p4 = pl.polynomial((-1,2,5))
-        p5 = pl.polynomial(p4)
+        p1 = pl.Polynomial()
+        p2 = pl.Polynomial([8,-5,0,3])
+        p3 = pl.Polynomial(8,-5,0,3)
+        p4 = pl.Polynomial((-1,2,5))
+        p5 = pl.Polynomial(p4)
 
-        self.assertTrue(isinstance(p1, pl.polynomial))
-        self.assertTrue(isinstance(p2, pl.polynomial))
-        self.assertTrue(isinstance(p3, pl.polynomial))
-        self.assertTrue(isinstance(p4, pl.polynomial))
-        self.assertTrue(isinstance(p5, pl.polynomial))
+        self.assertTrue(isinstance(p1, pl.Polynomial))
+        self.assertTrue(isinstance(p2, pl.Polynomial))
+        self.assertTrue(isinstance(p3, pl.Polynomial))
+        self.assertTrue(isinstance(p4, pl.Polynomial))
+        self.assertTrue(isinstance(p5, pl.Polynomial))
 
         self.assertEqual(p1.__str__(),"0")
         self.assertEqual(p2.__str__(),"8x3-5x2+3")
@@ -45,23 +45,23 @@ class TestStringMethods(unittest.TestCase):
     #@unittest.skip("demonstrating skipping")
     def test_Equal(self):
         print("test_Equal")
-        p0 = pl.polynomial()
-        p1 = pl.polynomial([])
-        p2 = pl.polynomial(0)
+        p0 = pl.Polynomial()
+        p1 = pl.Polynomial([])
+        p2 = pl.Polynomial(0)
         self.assertTrue(p0 == p1)
         self.assertTrue(p1 == p2)
         self.assertTrue(p1 == [])
         self.assertTrue(() == p2)
 
-        p1 = pl.polynomial(1, 2, 4, 3)
-        p2 = pl.polynomial(1, 2, 4, 3)
+        p1 = pl.Polynomial(1, 2, 4, 3)
+        p2 = pl.Polynomial(1, 2, 4, 3)
         self.assertEqual(p1, p2)
         self.assertTrue(p1 == (1, 2, 4, 3))
         self.assertTrue((1, 2, 4, 3) == p2)
 
-        p1 = pl.polynomial(1, 2, 2, 1)
-        p2 = pl.polynomial([1, 2, 2, 1])
-        p3 = pl.polynomial((1, 2, 2, 1))
+        p1 = pl.Polynomial(1, 2, 2, 1)
+        p2 = pl.Polynomial([1, 2, 2, 1])
+        p3 = pl.Polynomial((1, 2, 2, 1))
         self.assertTrue(p1 == p2)
         self.assertTrue(p2 == p3)
         self.assertTrue([1, 2, 2, 1] == p2)
@@ -69,9 +69,9 @@ class TestStringMethods(unittest.TestCase):
         self.assertFalse([1, 2, 2, 2] == p2)
         self.assertFalse(p2 == [1, 2, 2, 2])
 
-        p4 = pl.polynomial(0, 2, 2, 0)
-        p5 = pl.polynomial([0, 2, 2, 0])
-        p6 = pl.polynomial((0, 2, 2, 0))
+        p4 = pl.Polynomial(0, 2, 2, 0)
+        p5 = pl.Polynomial([0, 2, 2, 0])
+        p6 = pl.Polynomial((0, 2, 2, 0))
         self.assertTrue(p4 == p5)
         self.assertTrue(p5 == p6)
         self.assertTrue((0, 2, 2, 0) == p4)
@@ -85,12 +85,12 @@ class TestStringMethods(unittest.TestCase):
         #The test for scalar
         lastScalar = self.scalar_args_list[-1]
         lastScalar -= 110 # random number not equal 0
-        lastPoly = pl.polynomial(lastScalar)
+        lastPoly = pl.Polynomial(lastScalar)
         num_tests = len(self.scalar_args_list)
         for i in range(0,num_tests,1):
             agrs = self.scalar_args_list[i]
-            poly = pl.polynomial(agrs)
-            poly_copy = pl.polynomial(agrs)
+            poly = pl.Polynomial(agrs)
+            poly_copy = pl.Polynomial(agrs)
 
             self.assertFalse(poly != poly_copy, "iteration = {0} of {1}".format(i, num_tests))
             self.assertFalse(poly != agrs, "iteration = {0} of {1}".format(i, num_tests))
@@ -105,12 +105,12 @@ class TestStringMethods(unittest.TestCase):
         #The test for list
         lastList = self.seq1_args_list[-1][:]
         lastList[-2] -= 110 # random number not equal 0
-        lastPoly = pl.polynomial(lastList)
+        lastPoly = pl.Polynomial(lastList)
         num_tests = len(self.seq1_args_list)
         for i in range(0,num_tests,1):
             agrs = self.seq1_args_list[i]
-            poly = pl.polynomial(agrs)
-            poly_copy = pl.polynomial(agrs)
+            poly = pl.Polynomial(agrs)
+            poly_copy = pl.Polynomial(agrs)
 
             self.assertFalse(poly != poly_copy, "iteration = {0} of {1}".format(i, num_tests))
             self.assertFalse(poly != agrs, "iteration = {0} of {1}".format(i, num_tests))
@@ -125,12 +125,12 @@ class TestStringMethods(unittest.TestCase):
         #The test for tuple
         lastList = self.seq1_args_list[-1][:]
         lastList[-2] -= 110 # random number not equal 0
-        lastPoly = pl.polynomial(lastList)
+        lastPoly = pl.Polynomial(lastList)
         num_tests = len(self.seq2_args_list)
         for i in range(0,num_tests,1):
             agrs = self.seq2_args_list[i]
-            poly = pl.polynomial(agrs)
-            poly_copy = pl.polynomial(agrs)
+            poly = pl.Polynomial(agrs)
+            poly_copy = pl.Polynomial(agrs)
 
             self.assertFalse(poly != poly_copy, "iteration = {0} of {1}".format(i, num_tests))
             self.assertFalse(poly != agrs, "iteration = {0} of {1}".format(i, num_tests))
@@ -145,22 +145,22 @@ class TestStringMethods(unittest.TestCase):
         #The test for tuple
         lastList = self.seq1_args_list[-1][:]
         lastList[-2] -= 110 # random number not equal 0
-        lastPoly = pl.polynomial(lastList)
+        lastPoly = pl.Polynomial(lastList)
         
         #The test for empty
         self.assertTrue(lastPoly != [], "lastPoly != []")
         self.assertTrue([] != lastPoly, "[] != lastPoly")
         self.assertTrue(lastPoly != (), "lastPoly != ()")
         self.assertTrue(() != lastPoly, "() != lastPoly")
-        self.assertFalse(pl.polynomial([]) != [], "pl.polynomial([]) != []")
+        self.assertFalse(pl.Polynomial([]) != [], "pl.Polynomial([]) != []")
          
     #@unittest.skip("demonstrating skipping")
     def test_EmptyPolynomial(self):
         print("test_EmptyPolynomial")
-        test_list_args = ('', [], (), 0, (0,0), [0], [0,0,0], pl.polynomial())
+        test_list_args = ('', [], (), 0, (0,0), [0], [0,0,0], pl.Polynomial())
 
         for args in test_list_args:
-            poly = pl.polynomial(args)
+            poly = pl.Polynomial(args)
             self.assertTrue(poly.IsEmpty())
             self.assertTrue(len(poly.coeffs)==0)
             self.assertEqual(poly, self.polyE)
@@ -174,17 +174,17 @@ class TestStringMethods(unittest.TestCase):
         num_tests = len(self.scalar_args_list)
         for i in range(0, num_polys, 1):
             testPoly_args = argsList_for_polys[i]
-            poly = pl.polynomial(testPoly_args)
+            poly = pl.Polynomial(testPoly_args)
             for j in range(0, num_tests, 1):
                 number = self.scalar_args_list[j]
                 tmp_args = testPoly_args[:]
                 tmp_args[-1] += number
-                checkPoly = pl.polynomial(tmp_args)
-                save_poly = pl.polynomial(poly)
+                checkPoly = pl.Polynomial(tmp_args)
+                save_poly = pl.Polynomial(poly)
                 
                 self.assertEqual(poly+number, checkPoly, "iteration = {0} of {1}".format(i*num_tests+j, num_tests*num_polys))
                 self.assertEqual(number+poly, checkPoly, "iteration = {0} of {1}".format(i*num_tests+j, num_tests*num_polys))
-                self.assertTrue(save_poly == poly, "The polynomial must not mutable after these operations!!!")
+                self.assertTrue(save_poly == poly, "The Polynomial must not mutable after these operations!!!")
                 
     #@unittest.skip("demonstrating skipping")
     def test_AddSequenceOfScalar(self):
@@ -192,13 +192,13 @@ class TestStringMethods(unittest.TestCase):
         sequenceOfScalar_list = self.seq1_args_list + self.seq2_args_list
         num_polynimials = len(sequenceOfScalar_list)
         for i in range(0, num_polynimials, 1):
-            poly = pl.polynomial(sequenceOfScalar_list[i])
+            poly = pl.Polynomial(sequenceOfScalar_list[i])
             sequenceOfScalar = sequenceOfScalar_list[i][:]
-            save_poly = pl.polynomial(poly)
+            save_poly = pl.Polynomial(poly)
             
             self.assertEqual(poly+sequenceOfScalar, sequenceOfScalar+poly, "iteration = {0} of {1}".format(i, num_polynimials))
             self.assertEqual(poly+sequenceOfScalar, poly*2, "iteration = {0} of {1}".format(i, num_polynimials))
-            self.assertEqual(save_poly, poly, "The polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_poly, poly, "The Polynomial must not mutable after these operations!!!")
 
     #@unittest.skip("demonstrating skipping")
     def test_AddPolynomial(self):
@@ -206,15 +206,15 @@ class TestStringMethods(unittest.TestCase):
         args_list = self.empty_args_list + self.scalar_args_list + self.seq1_args_list + self.seq2_args_list
         num_polynimials = len(args_list)
         for i in range(0, num_polynimials, 1):
-            poly = pl.polynomial(args_list[i])
-            same_poly = pl.polynomial(args_list[i])
-            save_poly1 = pl.polynomial(poly)
-            save_poly2 = pl.polynomial(same_poly)
+            poly = pl.Polynomial(args_list[i])
+            same_poly = pl.Polynomial(args_list[i])
+            save_poly1 = pl.Polynomial(poly)
+            save_poly2 = pl.Polynomial(same_poly)
             
             self.assertEqual(poly+same_poly, same_poly+poly, "iteration = {0} of {1}".format(i, num_polynimials))
             self.assertEqual(poly+same_poly, poly*2, "iteration = {0} of {1}".format(i, num_polynimials))
-            self.assertEqual(save_poly1, poly, "The polynomial must not mutable after these operations!!!")
-            self.assertEqual(save_poly2, same_poly, "The polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_poly1, poly, "The Polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_poly2, same_poly, "The Polynomial must not mutable after these operations!!!")
             
 
     #@unittest.skip("demonstrating skipping")
@@ -226,21 +226,21 @@ class TestStringMethods(unittest.TestCase):
         
         for i in range(0, num_polys, 1):
             testPoly_args = argsList_for_polys[i]
-            poly = pl.polynomial(testPoly_args)
+            poly = pl.Polynomial(testPoly_args)
             for j in range(0, num_tests, 1):
                 number = self.scalar_args_list[j]
                 tmp_args = testPoly_args[:]
                 tmp_args[-1] -= number
-                check_right_Poly = pl.polynomial(tmp_args)
+                check_right_Poly = pl.Polynomial(tmp_args)
                 
                 tmp_args = [-item for item in testPoly_args]
                 tmp_args[-1] += number
-                check_left_Poly = pl.polynomial(tmp_args)
-                save_poly = pl.polynomial(poly)
+                check_left_Poly = pl.Polynomial(tmp_args)
+                save_poly = pl.Polynomial(poly)
                 
                 self.assertEqual(poly-number, check_right_Poly, "iteration = {0} of {1}".format(i*num_tests+j, num_tests*num_polys))
                 self.assertEqual(number-poly, check_left_Poly, "iteration = {0} of {1}".format(i*num_tests+j, num_tests*num_polys))
-                self.assertEqual(save_poly, poly, "The polynomial must not mutable after these operations!!!")
+                self.assertEqual(save_poly, poly, "The Polynomial must not mutable after these operations!!!")
             
     #@unittest.skip("demonstrating skipping")
     def test_SubSequenceOfScalar(self):
@@ -248,13 +248,13 @@ class TestStringMethods(unittest.TestCase):
         sequenceOfScalar_list = self.seq1_args_list + self.seq2_args_list
         num_polynimials = len(sequenceOfScalar_list)
         for i in range(0, num_polynimials, 1):
-            poly = pl.polynomial(sequenceOfScalar_list[i])
+            poly = pl.Polynomial(sequenceOfScalar_list[i])
             sequenceOfScalar = sequenceOfScalar_list[i][:]
-            save_poly = pl.polynomial(poly)
+            save_poly = pl.Polynomial(poly)
             
             self.assertEqual(-poly+sequenceOfScalar, sequenceOfScalar-poly, "iteration = {0} of {1}".format(i, num_polynimials))
             self.assertEqual(poly, -(sequenceOfScalar-(poly*2)), "iteration = {0} of {1}".format(i, num_polynimials))
-            self.assertEqual(save_poly, poly, "The polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_poly, poly, "The Polynomial must not mutable after these operations!!!")
 
     #@unittest.skip("demonstrating skipping")
     def test_SubPolynomial(self):
@@ -262,15 +262,15 @@ class TestStringMethods(unittest.TestCase):
         args_list = self.empty_args_list + self.scalar_args_list + self.seq1_args_list + self.seq2_args_list
         num_polynimials = len(args_list)
         for i in range(0, num_polynimials, 1):
-            poly = pl.polynomial(args_list[i])
-            same_poly = pl.polynomial(args_list[i])
-            save_poly1 = pl.polynomial(poly)
-            save_poly2 = pl.polynomial(same_poly)
+            poly = pl.Polynomial(args_list[i])
+            same_poly = pl.Polynomial(args_list[i])
+            save_poly1 = pl.Polynomial(poly)
+            save_poly2 = pl.Polynomial(same_poly)
             
             self.assertEqual(-poly+same_poly, same_poly-poly, "iteration = {0} of {1}".format(i, num_polynimials))
             self.assertEqual(poly,poly*2-same_poly, "iteration = {0} of {1}".format(i, num_polynimials))
-            self.assertEqual(save_poly1, poly, "The polynomial must not mutable after these operations!!!")
-            self.assertEqual(save_poly2, same_poly, "The polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_poly1, poly, "The Polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_poly2, same_poly, "The Polynomial must not mutable after these operations!!!")
 
 
     #@unittest.skip("demonstrating skipping")
@@ -278,10 +278,10 @@ class TestStringMethods(unittest.TestCase):
         print("test_Negative")
         num_tests = len(self.seq1_args_list)
         for i in range(0,num_tests,1):
-            poly = pl.polynomial(self.seq1_args_list[i])  
+            poly = pl.Polynomial(self.seq1_args_list[i])  
             
             negation_args = [ -item for item in self.seq1_args_list[i] ]
-            negation_poly = pl.polynomial(negation_args)
+            negation_poly = pl.Polynomial(negation_args)
             
             self.assertEqual(-poly, negation_poly, "iteration = {0} of {1}".format(i, num_tests))
 
@@ -290,7 +290,7 @@ class TestStringMethods(unittest.TestCase):
         print("test_ToString")
         num_tests = len(self.seq1_args_list)
         for i in range(0,num_tests,1):
-            poly = pl.polynomial(self.seq1_args_list[i])
+            poly = pl.Polynomial(self.seq1_args_list[i])
             self.assertEqual(poly.__str__(), self.strPoly_list[i], "iteration = {0} of {1}".format(i, num_tests))
     
     #@unittest.skip("demonstrating skipping")
@@ -298,17 +298,17 @@ class TestStringMethods(unittest.TestCase):
         print("test_Negative_and_ToString")
         num_tests = len(self.seq1_args_list)
         for i in range(0,num_tests,1):
-            poly = pl.polynomial(self.seq1_args_list[i])
+            poly = pl.Polynomial(self.seq1_args_list[i])
             self.assertEqual((-poly).__str__(), self.strNegPoly_list[i], "iteration = {0} of {1}".format(i, num_tests))
 			
     #@unittest.skip("demonstrating skipping")
     def test_constructor_copy(self):
         print("test_constructor_copy")
         args_list = self.empty_args_list + self.scalar_args_list + self.seq1_args_list + self.seq2_args_list
-        test_list_args = [pl.polynomial(item) for item in args_list]
+        test_list_args = [pl.Polynomial(item) for item in args_list]
         
         for args in test_list_args:
-            copy_poly = pl.polynomial(args)
+            copy_poly = pl.Polynomial(args)
             self.assertEqual(copy_poly, args)
             self.assertTrue(copy_poly.__str__()==args.__str__())
             self.assertEqual(copy_poly.coeffs, args.coeffs)
@@ -318,16 +318,16 @@ class TestStringMethods(unittest.TestCase):
         print("test_constructor_multi_scalars")
         test_list_args = [[1,2,3], [0,0,1,2,3], (1,2,3), (0,0,1,2,3), list([0,1,2,3])]
         
-        polyExpect = pl.polynomial(1,2,3)
-        polyNotExpect = pl.polynomial(3,2,1)
+        polyExpect = pl.Polynomial(1,2,3)
+        polyNotExpect = pl.Polynomial(3,2,1)
         for args in test_list_args:
-            poly = pl.polynomial(args)
+            poly = pl.Polynomial(args)
 
             self.assertTrue(len(poly.coeffs)==3)
             self.assertEqual(poly, polyExpect)
             self.assertNotEqual(poly, polyNotExpect)
         
-    #@unittest.skip("demonstrating skipping")        
+    #@unittest.skip("demonstrating skipping")
     def test_constructor_scalars(self):
         print(" test_constructor_scalars")
 
@@ -336,7 +336,7 @@ class TestStringMethods(unittest.TestCase):
         test_list_args2 = [-item for item in test_list_args]
 
         for args in test_list_args:
-            poly = pl.polynomial(args)
+            poly = pl.Polynomial(args)
 
             self.assertFalse(poly.IsEmpty())
             self.assertEqual(len(poly.coeffs),1)
@@ -344,7 +344,7 @@ class TestStringMethods(unittest.TestCase):
             self.assertNotEqual(poly, self.polyE)
 
         for args in test_list_args1:
-            poly = pl.polynomial(args)
+            poly = pl.Polynomial(args)
 
             self.assertFalse(poly.IsEmpty())
             self.assertEqual(len(poly.coeffs),1)
@@ -352,7 +352,7 @@ class TestStringMethods(unittest.TestCase):
             self.assertNotEqual(poly, self.polyE)
 
         for args in test_list_args2:
-            poly = pl.polynomial(args)
+            poly = pl.Polynomial(args)
 
             self.assertFalse(poly.IsEmpty())
             self.assertEqual(len(poly.coeffs), 1)
@@ -368,18 +368,18 @@ class TestStringMethods(unittest.TestCase):
         num_tests = len(self.scalar_args_list)
         for i in range(0, num_polys, 1):
             testPoly_args = argsList_for_polys[i]
-            poly = pl.polynomial(testPoly_args)
+            poly = pl.Polynomial(testPoly_args)
             
             for j in range(0, num_tests, 1):
                 number = self.scalar_args_list[j]
                 tmp_args = testPoly_args[:]
                 tmp_args = [item*number for item in tmp_args]
-                checkPoly = pl.polynomial(tmp_args)
-                save_poly = pl.polynomial(poly)
+                checkPoly = pl.Polynomial(tmp_args)
+                save_poly = pl.Polynomial(poly)
                 
                 self.assertEqual(poly*number, checkPoly, "iteration = {0} of {1}".format(i*num_tests+j, num_tests*num_polys))
                 self.assertEqual(number*poly, checkPoly, "iteration = {0} of {1}".format(i*num_tests+j, num_tests*num_polys))
-                self.assertEqual(save_poly, poly, "The polynomial must not mutable after these operations!!!")
+                self.assertEqual(save_poly, poly, "The Polynomial must not mutable after these operations!!!")
                 
     #@unittest.skip("demonstrating skipping")
     def test_MultSequenceOfScalar(self):
@@ -387,17 +387,17 @@ class TestStringMethods(unittest.TestCase):
         sequenceOfScalar_list = self.seq1_args_list
         num_polynimials = len(sequenceOfScalar_list)
         for i in range(0, num_polynimials, 1):
-            polyA = pl.polynomial(sequenceOfScalar_list[i])
-            save_polyA = pl.polynomial(polyA)
+            polyA = pl.Polynomial(sequenceOfScalar_list[i])
+            save_polyA = pl.Polynomial(polyA)
 
-            sequenceOfScalar = self.testMultPoly[:]            
-            save_SOS = pl.polynomial(sequenceOfScalar)
+            sequenceOfScalar = self.testMultPoly[:]
+            save_SOS = pl.Polynomial(sequenceOfScalar)
 
-            answerPoly = pl.polynomial(self.SolutionMultPoly[i])
+            answerPoly = pl.Polynomial(self.SolutionMultPoly[i])
             
             self.assertEqual(polyA*sequenceOfScalar, answerPoly, "iteration = {0} of {1}".format(i, num_polynimials))
             self.assertEqual(sequenceOfScalar*polyA, answerPoly, "iteration = {0} of {1}".format(i, num_polynimials))
-            self.assertEqual(save_polyA, save_polyA, "The polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_polyA, save_polyA, "The Polynomial must not mutable after these operations!!!")
             self.assertEqual(sequenceOfScalar, save_SOS, "The sequence must not mutable after these operations!!!")
             
             
@@ -407,86 +407,85 @@ class TestStringMethods(unittest.TestCase):
         args_list = self.seq1_args_list
         num_polynimials = len(args_list)
         for i in range(0, num_polynimials, 1):
-            polyA = pl.polynomial(args_list[i])
-            save_polyA = pl.polynomial(polyA)
+            polyA = pl.Polynomial(args_list[i])
+            save_polyA = pl.Polynomial(polyA)
 
-            polyB = pl.polynomial(self.testMultPoly)            
-            save_polyB = pl.polynomial(polyB)
+            polyB = pl.Polynomial(self.testMultPoly)
+            save_polyB = pl.Polynomial(polyB)
 
-            answerPoly = pl.polynomial(self.SolutionMultPoly[i])
+            answerPoly = pl.Polynomial(self.SolutionMultPoly[i])
             
             self.assertEqual(polyA*polyB, answerPoly, "iteration = {0} of {1}".format(i, num_polynimials))
             self.assertEqual(polyB*polyA, answerPoly, "iteration = {0} of {1}".format(i, num_polynimials))
-            self.assertEqual(save_polyA, save_polyA, "The polynomial must not mutable after these operations!!!")
-            self.assertEqual(save_polyB, save_polyB, "The polynomial must not mutable after these operations!!!")    
+            self.assertEqual(save_polyA, save_polyA, "The Polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_polyB, save_polyB, "The Polynomial must not mutable after these operations!!!")
   
 
     #@unittest.skip("demonstrating skipping")
     def test_Exceptions_TypeError(self):
         print("test_Exceptions_TypeError")
-        polyA = pl.polynomial(self.seq1_args_list[0])
-        save_polyA = pl.polynomial(polyA)
+        polyA = pl.Polynomial(self.seq1_args_list[0])
+        save_polyA = pl.Polynomial(polyA)
         
         args_list_TE = self.exception_args_list_TypeError[:]
         
         num_polynimials = len(args_list_TE)
         for i in range(0, num_polynimials, 1):
             something = args_list_TE[i]
-            with self.assertRaises(TypeError):    
+            with self.assertRaises(TypeError):
                 polyA+something
-            with self.assertRaises(TypeError):    
+            with self.assertRaises(TypeError):
                 something+polyA
-            with self.assertRaises(TypeError):    
+            with self.assertRaises(TypeError):
                 polyA-something
-            with self.assertRaises(TypeError):                
+            with self.assertRaises(TypeError):
                 something-polyA
             with self.assertRaises(TypeError):
                 polyA*something  
-            with self.assertRaises(TypeError):   
+            with self.assertRaises(TypeError):
                 something*polyA
-            with self.assertRaises(TypeError):   
+            with self.assertRaises(TypeError):
                 polyA == something
-            with self.assertRaises(TypeError):    
+            with self.assertRaises(TypeError):
                 polyA != something
             
             # polynomials must remain unchanged after tests!!!
-            self.assertEqual(save_polyA, save_polyA, "The polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_polyA, save_polyA, "The Polynomial must not mutable after these operations!!!")
             self.assertEqual(something, args_list_TE[i], "The sequence must not mutable after these operations!!!")
 
     #@unittest.skip("demonstrating skipping")
     def test_Exceptions_ValueError(self):
         print("test_Exceptions_ValueError")
-        polyA = pl.polynomial(self.seq1_args_list[0])
-        save_polyA = pl.polynomial(polyA)
+        polyA = pl.Polynomial(self.seq1_args_list[0])
+        save_polyA = pl.Polynomial(polyA)
         
         args_list_VE = self.exception_args_list_ValueError[:]
     
         num_polynimials = len(args_list_VE)
         for i in range(0, num_polynimials, 1):
             something = args_list_VE[i]
-            with self.assertRaises(ValueError):    
+            with self.assertRaises(ValueError):
                 polyA+something
-            with self.assertRaises(ValueError):    
+            with self.assertRaises(ValueError):
                 something+polyA
-            with self.assertRaises(ValueError):    
+            with self.assertRaises(ValueError):
                 polyA-something
-            with self.assertRaises(ValueError):                
+            with self.assertRaises(ValueError):
                 something-polyA
             with self.assertRaises(ValueError):
                 polyA*something  
-            with self.assertRaises(ValueError):   
+            with self.assertRaises(ValueError):
                 something*polyA
-            with self.assertRaises(ValueError):   
+            with self.assertRaises(ValueError):
                 polyA == something
-            with self.assertRaises(ValueError):    
+            with self.assertRaises(ValueError):
                 polyA != something
             
             # polynomials must remain unchanged after tests!!!
-            self.assertEqual(save_polyA, save_polyA, "The polynomial must not mutable after these operations!!!")
+            self.assertEqual(save_polyA, save_polyA, "The Polynomial must not mutable after these operations!!!")
             self.assertEqual(something, args_list_VE[i], "The sequence must not mutable after these operations!!!")
             
-        
+
 if __name__ == '__main__':
 	unittest.main()
-    
     
